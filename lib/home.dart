@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:text_translation/text_channel.dart';
+
+import 'Language.dart';
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
@@ -13,8 +15,9 @@ class _MyHomePageState extends State<MyHomePage> {
 //  var _translateFrom = "en";
 //   var _translateTo = "fa";
 String inputText = "";
-String dropdownValue1 = 'One';
-String dropdownValue2 = 'Two';
+Language dropdownValue1 = new Language("One", "First");
+
+Language dropdownValue2 =  new Language("Two", "Second");
 
 
 TextEditingController controller = TextEditingController();
@@ -43,18 +46,18 @@ Future<dynamic> _handleMethod(MethodCall call) async {
         SizedBox(
           height: 50.0,
           child: 
-          DropdownButton<String>(
+          DropdownButton<Language>(
           value: dropdownValue1,
-          onChanged: (String newValue) {
+          onChanged: (Language newValue) {
             setState(() {
               dropdownValue1 = newValue;
             });
           },
-          items: <String>['One', 'Two', 'Free', 'Four']
-              .map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
+          items: <Language>[new Language("en", "Eglish"),new Language("en", "Eglish"),new Language("en", "Eglish"),new Language("en", "Eglish")]
+              .map<DropdownMenuItem<Language>>((Language value) {
+            return DropdownMenuItem<Language>(
               value: value,
-              child: Text(value),
+              child: Text(value.name),
             );
           }).toList(),
         ),
@@ -69,18 +72,18 @@ Future<dynamic> _handleMethod(MethodCall call) async {
         SizedBox(
           height: 50.0,
           child: 
-          DropdownButton<String>(
+           DropdownButton<Language>(
           value: dropdownValue2,
-          onChanged: (String newValue) {
+          onChanged: (Language newValue) {
             setState(() {
               dropdownValue2 = newValue;
             });
           },
-          items: <String>['One', 'Two', 'Free', 'Four']
-              .map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
+          items: <Language>[new Language("en", "Eglish"),new Language("en", "Eglish"),new Language("en", "Eglish"),new Language("en", "Eglish")]
+              .map<DropdownMenuItem<Language>>((Language value) {
+            return DropdownMenuItem<Language>(
               value: value,
-              child: Text(value),
+              child: Text(value.name),
             );
           }).toList(),
         ),
@@ -98,7 +101,7 @@ Future<dynamic> _handleMethod(MethodCall call) async {
 
   _swapLang() {
     setState(() {
-      var tmp = dropdownValue1;
+      Language tmp = dropdownValue1;
       dropdownValue1 = dropdownValue2;
       dropdownValue2 = tmp;
 
