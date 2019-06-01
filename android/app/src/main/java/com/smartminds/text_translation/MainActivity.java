@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.google.cloud.translate.Language;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -44,6 +45,9 @@ public class MainActivity extends FlutterActivity implements MethodChannel.Metho
             case "getLanguages":
                 new RetrieveLanguages(google_translate, this::onLanguagesRecieved).execute();
                 break;
+            case "translate":
+                translate("","");
+                break;
             default:
                 result.notImplemented();
         }
@@ -63,6 +67,18 @@ public class MainActivity extends FlutterActivity implements MethodChannel.Metho
         });
     }
 
+    void translate(String text, String lang){
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                //TODO your background code
+                final Translation translation =
+                        google_translate.translate("How are you",
+                                Translate.TranslateOption.targetLanguage("ar"));
+                channel.invokeMethod("translation", translation.getTranslatedText());
+            }
+        });
+    }
     @Override
     public void onLanguagesRecieved(List<Language> languages) {
         channel.invokeMethod("setLanguages", new Gson().toJson(languages));

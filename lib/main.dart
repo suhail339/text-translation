@@ -31,6 +31,9 @@ Future<dynamic> _handleMethod(MethodCall call) async {
   switch (call.method) {
     case "setLanguages":
       print("Language List result:" + call.arguments);
+      break;
+    case "translation":
+      print("translation:"+call.arguments);
       return new Future.value("");
   }
 }
@@ -72,7 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
-    TextChannel.getLanguages();
+  //  TextChannel.getLanguages();
+    TextChannel.translate();
   }
 
   @override
