@@ -111,35 +111,31 @@ TextEditingController controller = TextEditingController();
       var tmp = _translateFrom;
       _translateFrom = _translateTo;
       _translateTo = tmp;
-      // var tmp = dropdownValue1;
-      // dropdownValue1 = dropdownValue2;
-      // dropdownValue2 = tmp;
+      
 
       // _visible = !_visible;
     });
   }
+
 _onSubmitted(String value) {
     setState(() => inputText = value);
-  }
-  
+  }  
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: Colors.red,
       ),
       body:        
          Container(
-           
+           color: Colors.black,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Expanded(
-                // height: 220.0,
-                // width: double.infinity,
                 child: Material(
                   elevation: 1.0,
                   child: 
@@ -151,8 +147,6 @@ _onSubmitted(String value) {
                             horizontal: 30.0, vertical: 15.0),
                         child: Row(
                           children: <Widget>[
-                          // _buildLang1Selctor(dropdownValue1),
-                           //_translateFrom
                             _buildLangSelctor(_translateFrom),
                             Expanded(
                               child: Container(),
@@ -212,6 +206,7 @@ _onSubmitted(String value) {
                       ),  
                       Text(
                         inputText.toString(),
+                        
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Colors.red,
