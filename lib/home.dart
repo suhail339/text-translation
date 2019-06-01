@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:text_translation/text_channel.dart';
-
-import 'Language.dart';
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
@@ -12,52 +10,61 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-//  var _translateFrom = "en";
-//   var _translateTo = "fa";
+ var _translateFrom = "en";
+  var _translateTo = "fa";
 String inputText = "";
-Language dropdownValue1 = new Language("One", "First");
+String dropdownValue1 = "English";
+String dropdownValue2 = "Uudu";
 
-Language dropdownValue2 =  new Language("Two", "Second");
-
-
+@override
+  void initState() {
+    // TextChannel.setMethodHandler(_handleMethod);
+    // TextChannel.testChannel();
+    // TextChannel.configTranslator();
+  }
+//   Future<dynamic> _handleMethod(MethodCall call) async {
+//   switch (call.method) {
+//     case "setLanguages":
+//       print("Language List result:" + call.arguments);
+//       return new Future.value("");
+//   }
+// }
 TextEditingController controller = TextEditingController();
  
- @override
-  void initState() {
-    TextChannel.setMethodHandler(_handleMethod);
-    TextChannel.testChannel();
-    TextChannel.configTranslator();
+ _buildLangSelctor(key) {
+    return Row(
+      children: <Widget>[
+        SizedBox(
+          height: 50.0,
+          child: key == "fa"
+              ? Image.asset("assets/flags/ir.png")
+              : Image.asset("assets/flags/us.png"),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 14.0),
+          child: key == "fa" ? Text("Persian") : Text("English"),
+        )
+      ],
+    );
   }
-
-Future<dynamic> _handleMethod(MethodCall call) async {
-  switch (call.method) {
-    case "setLanguages":
-      print("Language List result:" + call.arguments);
-      break;
-    case "translation":
-      print("translation:"+call.arguments);
-      return new Future.value("");
-  }
-}
-
   _buildLang1Selctor(key) {
     return Row(
       children: <Widget>[
         SizedBox(
           height: 50.0,
           child: 
-          DropdownButton<Language>(
+          DropdownButton<String>(
           value: dropdownValue1,
-          onChanged: (Language newValue) {
+          onChanged: (String newValue) {
             setState(() {
               dropdownValue1 = newValue;
             });
           },
-          items: <Language>[new Language("en", "Eglish"),new Language("en", "Eglish"),new Language("en", "Eglish"),new Language("en", "Eglish")]
-              .map<DropdownMenuItem<Language>>((Language value) {
-            return DropdownMenuItem<Language>(
+          items: <String>["English","Urdu"]
+              .map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
               value: value,
-              child: Text(value.name),
+              child: Text(value),
             );
           }).toList(),
         ),
@@ -72,38 +79,41 @@ Future<dynamic> _handleMethod(MethodCall call) async {
         SizedBox(
           height: 50.0,
           child: 
-           DropdownButton<Language>(
-          value: dropdownValue2,
-          onChanged: (Language newValue) {
-            setState(() {
-              dropdownValue2 = newValue;
-            });
-          },
-          items: <Language>[new Language("en", "Eglish"),new Language("en", "Eglish"),new Language("en", "Eglish"),new Language("en", "Eglish")]
-              .map<DropdownMenuItem<Language>>((Language value) {
-            return DropdownMenuItem<Language>(
-              value: value,
-              child: Text(value.name),
-            );
-          }).toList(),
+        //   DropdownButton<String>(
+        //   value: dropdownValue2,
+        //   onChanged: (String newValue) {
+        //     setState(() {
+        //       dropdownValue2 = newValue;
+        //     });
+        //   },
+        //   items: <String>["Urdu","English"]
+        //       .map<DropdownMenuItem<String>>((String value) {
+        //     return DropdownMenuItem<String>(
+        //       value: value,
+        //       child: Text(value),
+        //     );
+        //   }).toList(),
+        // ),
+          key == "fa"
+              ? Image.asset("assets/flags/ir.png")
+              : Image.asset("assets/flags/us.png"),
         ),
-          // key == "fa"
-          //     ? Image.asset("assets/flags/ir.png")
-          //     : Image.asset("assets/flags/us.png"),
-        ),
-        // Padding(
-        //   padding: const EdgeInsets.only(left: 14.0),
-        //   child: key == "fa" ? Text("Persian") : Text("English"),
-        // )
+        Padding(
+          padding: const EdgeInsets.only(left: 14.0),
+          child: key == "fa" ? Text("Persian") : Text("English"),
+        )
       ],
     );
   }
 
   _swapLang() {
     setState(() {
-      Language tmp = dropdownValue1;
-      dropdownValue1 = dropdownValue2;
-      dropdownValue2 = tmp;
+      var tmp = _translateFrom;
+      _translateFrom = _translateTo;
+      _translateTo = tmp;
+      // var tmp = dropdownValue1;
+      // dropdownValue1 = dropdownValue2;
+      // dropdownValue2 = tmp;
 
       // _visible = !_visible;
     });
@@ -117,11 +127,13 @@ _onSubmitted(String value) {
   Widget build(BuildContext context) {
     
     return Scaffold(
+      backgroundColor: Colors.blueGrey,
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body:        
          Container(
+           
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -139,7 +151,9 @@ _onSubmitted(String value) {
                             horizontal: 30.0, vertical: 15.0),
                         child: Row(
                           children: <Widget>[
-                           _buildLang1Selctor(dropdownValue1),//_translateFrom
+                          // _buildLang1Selctor(dropdownValue1),
+                           //_translateFrom
+                            _buildLangSelctor(_translateFrom),
                             Expanded(
                               child: Container(),
                             ),
@@ -155,7 +169,7 @@ _onSubmitted(String value) {
                             Expanded(
                               child: Container(),
                             ),
-                             _buildLang2Selctor(dropdownValue2),
+                             _buildLangSelctor(_translateTo),
                           ],
                         ),
                       ),
@@ -166,7 +180,7 @@ _onSubmitted(String value) {
                       Directionality(
                         textDirection: 
                         //selected index of list
-                        dropdownValue1 == "One" 
+                        _translateFrom == "en" 
                             ? TextDirection.ltr
                             : TextDirection.rtl,
                         child: Container(
@@ -184,7 +198,7 @@ _onSubmitted(String value) {
                               // enabled: true,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: dropdownValue2 == "Two"
+                                  hintText: _translateFrom == "en"
                                       ? 'Tap To Enter Text'
                                       : "چیزی برای ترجمه بنویسید "),
                                 onChanged: _onSubmitted,
@@ -209,9 +223,6 @@ _onSubmitted(String value) {
               ),
             ]),
       ),
-     
-      
-     
     );
   }
   
