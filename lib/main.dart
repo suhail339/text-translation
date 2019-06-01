@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
+import 'package:text_translation/pages/home.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,4 +16,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 

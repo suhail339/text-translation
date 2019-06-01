@@ -46,7 +46,7 @@ public class MainActivity extends FlutterActivity implements MethodChannel.Metho
                 new RetrieveLanguages(google_translate, this::onLanguagesRecieved).execute();
                 break;
             case "translate":
-                translate("","");
+                translate(methodCall.arguments.toString(),"fa");
                 break;
             default:
                 result.notImplemented();
@@ -73,8 +73,8 @@ public class MainActivity extends FlutterActivity implements MethodChannel.Metho
             public void run() {
                 //TODO your background code
                 final Translation translation =
-                        google_translate.translate("How are you",
-                                Translate.TranslateOption.targetLanguage("ar"));
+                        google_translate.translate(text,
+                                Translate.TranslateOption.targetLanguage(lang));
                 channel.invokeMethod("translation", translation.getTranslatedText());
             }
         });

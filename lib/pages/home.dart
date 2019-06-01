@@ -18,17 +18,21 @@ String dropdownValue2 = "Uudu";
 
 @override
   void initState() {
-    // TextChannel.setMethodHandler(_handleMethod);
-    // TextChannel.testChannel();
-    // TextChannel.configTranslator();
+     TextChannel.setMethodHandler(_handleMethod);
+  //   TextChannel.testChannel();
+     TextChannel.configTranslator();
   }
-//   Future<dynamic> _handleMethod(MethodCall call) async {
-//   switch (call.method) {
-//     case "setLanguages":
-//       print("Language List result:" + call.arguments);
-//       return new Future.value("");
-//   }
-// }
+  Future<dynamic> _handleMethod(MethodCall call) async {
+   switch (call.method) {
+     case "setLanguages":
+       print("Language List result:" + call.arguments);
+       break;
+     case "translation":
+       print("translation:"+call.arguments);
+        setState(() => inputText = call.arguments);
+       return new Future.value("");
+   }
+ }
 TextEditingController controller = TextEditingController();
  
  _buildLangSelctor(key) {
@@ -79,21 +83,7 @@ TextEditingController controller = TextEditingController();
         SizedBox(
           height: 50.0,
           child: 
-        //   DropdownButton<String>(
-        //   value: dropdownValue2,
-        //   onChanged: (String newValue) {
-        //     setState(() {
-        //       dropdownValue2 = newValue;
-        //     });
-        //   },
-        //   items: <String>["Urdu","English"]
-        //       .map<DropdownMenuItem<String>>((String value) {
-        //     return DropdownMenuItem<String>(
-        //       value: value,
-        //       child: Text(value),
-        //     );
-        //   }).toList(),
-        // ),
+        
           key == "fa"
               ? Image.asset("assets/flags/ir.png")
               : Image.asset("assets/flags/us.png"),
@@ -111,9 +101,6 @@ TextEditingController controller = TextEditingController();
       var tmp = _translateFrom;
       _translateFrom = _translateTo;
       _translateTo = tmp;
-      
-
-      // _visible = !_visible;
     });
   }
 
@@ -157,7 +144,7 @@ _onSubmitted(String value) {
                                 color: Colors.deepPurple,
                               ),
                               onPressed: () {
-                                 _swapLang();
+                              //   _swapLang();
                               },
                             ),
                             Expanded(
