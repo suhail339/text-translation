@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:text_translation/text_channel.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,6 +27,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
+Future<dynamic> _handleMethod(MethodCall call) async {
+  switch (call.method) {
+    case "setLanguages":
+      debugPrint(call.arguments);
+      return new Future.value("");
+  }
+}
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -45,6 +55,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  @override
+  void initState() {
+    TextChannel.setMethodHandler(_handleMethod);
+    TextChannel.testChannel();
+  }
 
   void _incrementCounter() {
     setState(() {
