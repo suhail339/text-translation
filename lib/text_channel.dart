@@ -21,4 +21,8 @@ class TextChannel {
   static Future<String> getLanguages() async {
     await text_channel.invokeMethod('getLanguages');
   }
+
+  static Future<String> translate() async {
+    await text_channel.invokeMethod('translate');
+  }
 }

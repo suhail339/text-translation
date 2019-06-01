@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:text_translation/text_channel.dart';
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
@@ -17,6 +19,24 @@ String dropdownValue2 = 'Two';
 
 TextEditingController controller = TextEditingController();
  
+ @override
+  void initState() {
+    TextChannel.setMethodHandler(_handleMethod);
+    TextChannel.testChannel();
+    TextChannel.configTranslator();
+  }
+
+Future<dynamic> _handleMethod(MethodCall call) async {
+  switch (call.method) {
+    case "setLanguages":
+      print("Language List result:" + call.arguments);
+      break;
+    case "translation":
+      print("translation:"+call.arguments);
+      return new Future.value("");
+  }
+}
+
   _buildLang1Selctor(key) {
     return Row(
       children: <Widget>[
