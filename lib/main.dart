@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
 Future<dynamic> _handleMethod(MethodCall call) async {
   switch (call.method) {
     case "setLanguages":
-      debugPrint(call.arguments);
+      print("Language List result:" + call.arguments);
       return new Future.value("");
   }
 }
@@ -60,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     TextChannel.setMethodHandler(_handleMethod);
     TextChannel.testChannel();
+    TextChannel.configTranslator();
   }
 
   void _incrementCounter() {
@@ -71,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+    TextChannel.getLanguages();
   }
 
   @override
