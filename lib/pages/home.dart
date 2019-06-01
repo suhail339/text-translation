@@ -19,7 +19,6 @@ String dropdownValue2 = "Uudu";
 @override
   void initState() {
      TextChannel.setMethodHandler(_handleMethod);
-  //   TextChannel.testChannel();
      TextChannel.configTranslator();
   }
   Future<dynamic> _handleMethod(MethodCall call) async {
@@ -143,9 +142,7 @@ _onSubmitted(String value) {
                                 IconData(0xe801, fontFamily: 'GTranslate'),
                                 color: Colors.deepPurple,
                               ),
-                              onPressed: () {
-                              //   _swapLang();
-                              },
+                              
                             ),
                             Expanded(
                               child: Container(),
@@ -157,10 +154,8 @@ _onSubmitted(String value) {
                       Divider(
                         color: Colors.deepPurple,
                       ),
-                      // input section
                       Directionality(
                         textDirection: 
-                        //selected index of list
                         _translateFrom == "en" 
                             ? TextDirection.ltr
                             : TextDirection.rtl,
@@ -168,15 +163,13 @@ _onSubmitted(String value) {
                           padding: EdgeInsets.symmetric(horizontal: 10.0),
                           child: InkWell(
                             onTap: () {
-                              // _getRecentsFromSharedPrefsFolder();
-                               //_goToTranslatePage();
+                              
                             },
                             child: TextField(
                               controller: controller,
                               textAlign: TextAlign.start,
                               keyboardType: TextInputType.multiline,
                               maxLines: 4,
-                              // enabled: true,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: _translateFrom == "en"
@@ -186,8 +179,7 @@ _onSubmitted(String value) {
                             ),
                           ),
                         ),
-                      ),
-                      //Text view here for the translation    
+                      ),  
                        Divider(
                         color: Colors.deepPurple,
                       ),  
